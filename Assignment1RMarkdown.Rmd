@@ -1,0 +1,30 @@
+---
+title: "Assignment1RMarkdown"
+author: "John White"
+date: "2022-10-06"
+output: html_document
+---
+# Wave Plot
+```{r}
+x <- c(seq(0,20,0.01)) # Vector x = 0 to 20 in steps of 0.01
+y <- c(sin(x))
+sin_df <- data.frame(x,y)
+plot(x,y)
+```
+
+$$
+sin^2(x) + cos^2(y) = 1
+$$
+## Other examples ...
+\begin{equation} 
+\sin(x)=\sum_{n=1}^{\infty}(-1)^{n+1}\cdot \frac{x^{2n-1}}{(2n-1)!}
+\approx x-\frac{x^3}{3!}+\frac{x^5}{5!}-\frac{x^7}{7!}\ldots
+\end{equation} 
+   
+\begin{equation}
+A=\left(\begin{matrix} a_{11} & a_{12}\\ a_{21} & a_{22} \end{matrix}\right).
+\end{equation}
+
+
+
+

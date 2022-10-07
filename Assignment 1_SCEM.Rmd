@@ -1,0 +1,240 @@
+---
+title: "Assignment 1_SCEM"
+author: "John White"
+date: "2022-09-29"
+output: 
+  html_document:
+    theme: yeti
+    toc: true
+    toc_float: true
+---
+# 1 Create a Data Frame and Step 3, Step 4
+```{r}
+## Step 1
+animals <- c("Snake", "Ostrich","Cat","Spider")
+animals
+## Step 2
+num_legs <- c(0, 2, 4, 8)
+num_legs
+## Step 3
+animals_df <- data.frame(animals, num_legs)
+animals_df
+
+```
+### Step 4
+Data types of ...  
+animals = chr or character  
+num_legs = num or numbers  
+animals_df = 4 objects with 2 variables each (animal name and number of legs)  
+
+# 2 Check and Delete Objects
+To list all of the objects yet created use ...
+```{r}
+ls() # To list the objects
+objects() # Again to list the objects
+
+# To create a vector
+a <- c(0.5,0.5,1,9)
+# and to remove objects use ...
+rm(a)
+```
+### And for urls just use <url_address> ...
+<https://www.bbc.co.uk>
+
+# 3 and 4 Create a data frame in R Scripts
+```{r}
+## My first R Script
+## Create 2 vectors and then combine them to make a data frame
+animals <- c("Snake", "Ostrich","Cat","Spider")
+num_legs <- c(0, 2, 4, 8)
+print(animals)
+print(num_legs)
+animals_df = data.frame(animals,num_legs)
+print(animals_df)
+```
+
+
+# 5 Matrix Operations
+
+```{r}
+x_vector <- seq(12, 2, -2) # Create a vector x_vector
+## x_vector is equal to
+print(x_vector)
+X <- matrix(x_vector,2, 3) # Create a matrix from the 6 numbers produced (2x3)
+## The X matrix is equal to
+print(X)
+y_vector <- seq(1,4) # Create a vector 1 to 4
+## The y_vector is equal to
+print(y_vector)
+Y <- matrix(y_vector,2,2) # Create a 2x2 matrix from the 1 to 4 sequence - call it Y
+## The Y matrix is equal to
+print(Y)
+Z <- matrix(c(4,6,8,10),2,2) # Create a vector of input values and then make a 2x2 matrix 
+## The Z matrix is equal to
+print (Z)
+YT <- t(Y) # Transpose matrix Y
+## The transpose of Y
+print(YT)
+ZT <- t(Z) #Transpose matrix Z
+## The transpose of Z
+print(ZT)
+```
+
+### Matrix sums
+```{r}
+## The matrix addition of Y+Z is
+print(Y+Z)
+## and the addition of Z+Y is
+print (Z+Y)
+## Y+Z = Z+Y: Therefore matrix multiplication is commutative
+```
+### Matrix Multiplication
+print("Next we are going to see whether Matrix multiplication is commutative.")
+```{r}
+## Y Matrix
+print(Y)
+## Z Matrix
+print(Z)
+## YxZ or Y.Z
+print(Y %*% Z)
+## ZxY or Z.Y
+print(Z %*% Y)
+```
+Y.Z does not equal Z.Y. Therefore matrix multiplication is NOT commutative.  
+However, 'Element-Wise' matrix multiplication is obviously commutative, as proven later.
+```{r}
+## Finally, to complete matrix multiplication of Y.X - a (2x2).(2x3) matrix
+## Y matrix
+print (Y)
+## X matrix 
+print (X)
+## So, Y.X matrix multiplication results in
+print (Y %*% X)
+```
+Y.Z can be calculated because there is the same number of columns in the 1st matrix Y, as there are rows in the 2nd matrix Z. As the nature of matrix multiplication is...  
+row (of 1st matrix) x column (of 2nd matrix)  
+...these numbers have to match. If they don't match then you get an error as you are multiplying 2 numbers by 3!.
+
+### Element-Wise matrix multiplication
+Let's quickly explore whether Element-Wise matrix multiplication is commutative.  So, using LATeX notation ...
+
+$$
+Y\bigodot Z \text{ and } Z\bigodot Y
+$$
+
+... are equal
+```{r}
+## So, Y matrix
+print(Y)
+## Z matrix
+print(Z)
+```
+$$
+Y\bigodot Z
+$$
+```{r}
+print(Y*Z)
+```
+
+$$
+Z\bigodot Y
+$$
+```{r}
+print(Z*Y)
+```
+As they are equal this means that Element-Wise matrix multiplication is communicative.
+
+### Matrix Inverse
+The Inverse of a matrix when multiplied with the original matrix will result in the Identity matrix. The Identity matrix is a matrix that when multiplied with any matrix will result in the 'identical' matrix, hence it's name Identity Matrix.  
+To calculate the Identity Matrix use the following formula ...
+$$
+A^{-1} = \frac{1}{det(A)}.adj(A)
+$$
+Alternatively, you can use 'R' to solve the Inverse of a matrix by the following command ... solve(A)  
+Therefore lets explore the use of this function ...
+```{r}
+## Y matrix
+print (Y)
+## Therefore the Inverse of Y
+YInv = solve(Y)
+print(YInv)
+```
+Therefore, if we multiply Y with the Inverse of Y, we should get the Identity Matrix, as per below ...
+$$
+Y.Y^{-1} = \begin{bmatrix}1&0\\0&1\end{bmatrix}
+$$
+```{r}
+print(Y %*% YInv)
+```
+Therefore this proves that YInv is indeed the Inverse of Y.
+
+Now to calculate ...
+$$
+Y^{-1}.X
+$$
+```{r}
+## Y Inverse matrix 
+print(YInv)
+
+## X matrix 
+print(X)
+
+## Y Inverse matrix x X matrix 
+print(YInv %*% X)
+
+```
+To solve this matrix multiplication without having to calculate the inverse of Y, you could use the following code...
+```{r}
+print(solve(Y) %*% X)
+```
+If you use the solve() function with no second input b, then R makes b = Identity matrix and the result in the inverse of Matrix a - the only matrix input, as below ...   
+
+## Default S3 method:  
+  
+solve(a, b, tol, LINPACK = FALSE, ...)
+
+# 6 Writing a function within R   
+
+Step 1. Within your script create a short function called myFirstRFunc which takes in a single
+numerical argument n and outputs the sum of all those numbers strictly below n which are
+divisible by either 2 or 7 or both.
+
+Step 2. Run the script by clicking on the “Source” button on the top right. Then check what
+you get if you apply the function to 1000, i.e. 
+
+```{r}
+## My Second RScript
+myFirstRFunction <- function(num){
+  # This function takes in a number and adds all of the numbers <n divisible by 2 or 7
+  multiples = c()
+  total <- 0
+  for (i in 1:num){
+    if (i %% 2 == 0){
+      total = total + i
+      multiples <- append(multiples, i)
+    }
+    else{
+      if(i %% 7 == 0){
+          total = total + i
+          multiples <- append(multiples, i)
+      }
+    }
+  }
+  return (total)
+}
+
+# First input a number
+var = readline(prompt = "Enter number to add up all nos. below this that are divisible by 2 and 7?: ")
+var = as.integer(var)
+
+total = myFirstRFunction(var)
+# print(paste("2 and 7 can be divided equally into the following numbers ...   ", multiples))
+print(paste("The sum of all numbers divisible by 2 and 7 between 1 and ", var, " is ", total))
+
+```
+
+# 7 Further R Markdown exercises
+
+
+
+
